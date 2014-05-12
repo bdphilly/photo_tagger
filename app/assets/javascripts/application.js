@@ -21,3 +21,63 @@
 //= require_tree ../templates
 //
 //= require_tree .
+
+var Photo = function (attrs) {
+  this.attributes = attrs;
+};
+
+_.extend(Photo.prototype, {
+  get: function(attr_name) {
+    return this.attributes[attr_name];
+  },
+
+  set: function(attr_name, val) {
+    this.attributes[attr_name] = val;
+  },
+
+  create: function(callback) {
+    var that = this;
+    $.ajax({
+      method: 'POST',
+      url: '/api/photos',
+      data: {
+        Photo: this.attributes
+      }
+      success: function (response) {
+        _.extend(that.attributes, response);
+        callback(that.attributes);
+      }
+    })
+  },
+
+  update: function(callback) {
+    $.ajax({
+      method: 'PATCH',
+      url: '/api/photos',
+      data: {
+        Photo: this.attributes
+      }
+      success: function (response) {
+        _.extend(that.attributes, response);
+        callback(response);
+      }
+    })
+  },
+
+  save: function(callback){
+    if(that.id){
+      this.update(callback)
+    } else {
+      this.create(callback)
+    }
+  }
+});
+
+_.extend(Photo)
+
+var p = new Photo()
+
+p.set('url', 'http://google.com')
+p.save(function(newPhoto) {
+  console.log(newPhoto);
+});
