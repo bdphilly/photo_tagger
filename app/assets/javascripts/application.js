@@ -65,19 +65,31 @@ _.extend(Photo.prototype, {
     })
   },
 
-  save: function(callback){
+  save: function(callback) {
     if(this.get('id')){
-      alert("i am updating")
       this.update(callback);
     } else {
       this.create(callback);
     }
+  },
+
+  fetchByUserId: function(userId, callback) {
+    var that = this;
+    $.ajax({
+      method: 'GET',
+      url: 'api/users/' + userId + '/photos',
+      success: function (response) {
+        _.extend(that.attributes, response);
+        if (callback) callback(that.attributes);
+      }
+    })
   }
+
 });
 // //
 // // _.extend(Photo)
 //
-var p = new Photo()
+// var p = new Photo()
 //
 // p.set('url', 'http://google.com')
 // p.set('title', "test");
