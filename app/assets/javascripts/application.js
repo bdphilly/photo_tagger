@@ -23,7 +23,7 @@
 //= require_tree .
 
 var Photo = function (attrs) {
-  this.attributes = attrs;
+  this.attributes = (attrs || {})
 };
 
 _.extend(Photo.prototype, {
@@ -39,45 +39,50 @@ _.extend(Photo.prototype, {
     var that = this;
     $.ajax({
       method: 'POST',
-      url: '/api/photos',
+      url: 'api/photos',
       data: {
-        Photo: this.attributes
-      }
+        photo: this.attributes
+      },
       success: function (response) {
         _.extend(that.attributes, response);
-        callback(that.attributes);
+        if (callback) callback(that.attributes);
       }
     })
   },
 
   update: function(callback) {
+    var that = this;
     $.ajax({
       method: 'PATCH',
-      url: '/api/photos',
+      url: 'api/photos/' + this.get('id'),
       data: {
-        Photo: this.attributes
-      }
+        photo: this.attributes
+      },
       success: function (response) {
         _.extend(that.attributes, response);
-        callback(response);
+        if (callback) callback(that.attributes);
       }
     })
   },
 
   save: function(callback){
-    if(that.id){
-      this.update(callback)
+    if(this.get('id')){
+      alert("i am updating")
+      this.update(callback);
     } else {
-      this.create(callback)
+      this.create(callback);
     }
   }
 });
-
-_.extend(Photo)
-
+// //
+// // _.extend(Photo)
+//
 var p = new Photo()
-
-p.set('url', 'http://google.com')
-p.save(function(newPhoto) {
-  console.log(newPhoto);
-});
+//
+// p.set('url', 'http://google.com')
+// p.set('title', "test");
+// p.save();//
+// p.set('title',)
+// p.save(function(newPhoto) {
+//   console.log(newPhoto);
+// });
