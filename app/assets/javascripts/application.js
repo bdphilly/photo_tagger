@@ -23,14 +23,13 @@
 
 
 
-function PhotoApp ($rootEl) {
-  this.$rootEl = $rootEl;
-};
+// function PhotoApp ($rootEl) {
+//   this.$rootEl = $rootEl;
+// };
 
 _.extend(PhotoApp, {
 
-  initialize: function (CURRENT_USER_ID) {
-    // var AllPhotos;
+  initialize: function () {
     var that = this;
     PhotoApp.Photo.fetchByUserId(CURRENT_USER_ID, function() {
       PhotoApp.showPhotosIndex();
@@ -38,7 +37,7 @@ _.extend(PhotoApp, {
   },
 
   showPhotosIndex: function() {
-    var content = $("content");
+    var content = $("#content");
     content.empty();
 
     var photosListView = new PhotoApp.PhotosListView();
@@ -46,7 +45,6 @@ _.extend(PhotoApp, {
 
     var photoFormView = new PhotoApp.PhotoFormView();
     content.append(photoFormView.render().$el);
-
   },
 
     //   var photosListView = new PhotoApp.PhotosListView();

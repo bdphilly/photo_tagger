@@ -3,20 +3,24 @@
   var PhotoApp = root.PhotoApp = ( root.PhotoApp || {} );
 
   var PhotosListView = PhotoApp.PhotosListView = function(){
-    this.$el = $('<div></div>')
+    this.$el = $('<div></div>');
   }
 
   _.extend(PhotosListView.prototype, {
     render: function() {
       this.$el.empty();
-      this.$el.append('<ul>');
-      var that = this;
+      var $ul = $("<ul></ul>");
+      // var that = this;
       _.each(PhotoApp.Photo.all, function(photo) {
-
-        that.$el.append('<li>' + photo.get('url') +
-          ' : ' + photo.get('title') + '</li>');
-      })
-      return this.$el;
+        var $li = $("<li></li>");
+        var $a = $("<a></a>");
+        $a.text(photo.get("title"));
+        $a.attr("href", "#");
+        $a.attr("data-id", photo.get("id"));
+        $ul.append($li.html($a));
+      });
+      this.$el.html($ul);
+      return this;
     }
   })
 })(this);

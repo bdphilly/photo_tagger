@@ -4,14 +4,15 @@
 
   var PhotoFormView = PhotoApp.PhotoFormView = function () {
     this.$el = $("<div></div>");
-    this.template = JST["photo_form"];
+    this.template = JST["photo_form"]();
     this.$el.on("submit", "form", this.submit.bind(this));
   };
 
   _.extend(PhotoFormView.prototype, {
     render: function() {
       this.$el.html(this.template);
-      return this.$el;
+      // debugger
+      return this;
     },
 
     submit: function (event) {
