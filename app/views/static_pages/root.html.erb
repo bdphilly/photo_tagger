@@ -3,11 +3,15 @@
 
 <script>
 
-(function() {
-  var $rootEl = $('#content')
+// (function() {
+  // var $rootEl = $('#content')
   var CURRENT_USER_ID = <%= @current_user.id %>
-  var pagetemplate = new PT($rootEl);
-  pagetemplate.initialize(CURRENT_USER_ID)
-})(this);
+  // var pagetemplate = new PhotoApp($rootEl);
+  // pagetemplate.initialize(CURRENT_USER_ID)
+
+  $(PhotoApp.initialize);
+
+
+// })(this);
 
 </script>

@@ -5,38 +5,27 @@
   var PhotoFormView = PhotoApp.PhotoFormView = function () {
     this.$el = $("<div></div>");
     this.template = JST["photo_form"];
-    // PhotoApp.Photo.on()
-
-  }
+    this.$el.on("submit", "form", this.submit.bind(this));
+  };
 
   _.extend(PhotoFormView.prototype, {
     render: function() {
       this.$el.html(this.template);
       return this.$el;
-    }
-
-    submit: function(event) {
-      event.preventDefault();
-
-      var $(form) = $(event.target);
-      var formData = $(form).serializeJSON;
-      var newPhoto = new PhotoApp.Photo(formData);
-
-    }
-  })
-
-  _.extend(PhotoFormView, {
-    events: {},
-
-    on: function (eventTitle, callback) {
-      this.events[eventTitle] = this.events[eventTitle] || [];
-      this.events[eventTitle].push(callback);
     },
 
+    submit: function (event) {
+      event.preventDefault();
 
+      var $form = $(event.currentTarget);
+      var formData = $form.serializeJSON();
+      var newPhoto = new PhotoApp.Photo(formData.photo);
 
-  })
+      newPhoto.create(function (newPhoto) {
+        alert('photo got saved!');
+      });
 
-
+    }
+  });
 
 })(this);

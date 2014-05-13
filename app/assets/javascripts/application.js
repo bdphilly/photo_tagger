@@ -23,25 +23,40 @@
 
 
 
-function PT ($rootEl) {
+function PhotoApp ($rootEl) {
   this.$rootEl = $rootEl;
 };
 
-_.extend(PT.prototype, {
+_.extend(PhotoApp, {
 
   initialize: function (CURRENT_USER_ID) {
     // var AllPhotos;
     var that = this;
     PhotoApp.Photo.fetchByUserId(CURRENT_USER_ID, function() {
-      var photosListView = new PhotoApp.PhotosListView();
-      var newView = photosListView.render()
-      that.$rootEl.append(newView)
+      PhotoApp.showPhotosIndex();
+    });
+  },
 
-      var photoForm = new PhotoApp.PhotoFormView();
-      that.$rootEl.append(photoForm.render());
-    })
+  showPhotosIndex: function() {
+    var content = $("content");
+    content.empty();
 
+    var photosListView = new PhotoApp.PhotosListView();
+    content.append(photosListView.render().$el);
 
-  }
-})
+    var photoFormView = new PhotoApp.PhotoFormView();
+    content.append(photoFormView.render().$el);
+
+  },
+
+    //   var photosListView = new PhotoApp.PhotosListView();
+    //   var newView = photosListView.render();
+    //   that.$rootEl.append(newView)
+    //
+    //   var photoFormView = new PhotoApp.PhotoFormView();
+    //   var newForm = photoForm.render();
+    //   that.$rootEl.append(newForm);
+    // })
+
+});
 
