@@ -36,6 +36,9 @@ _.extend(PT.prototype, {
       var photosListView = new PhotoApp.PhotosListView();
       var newView = photosListView.render()
       that.$rootEl.append(newView)
+
+      var photoForm = new PhotoApp.PhotoFormView();
+      that.$rootEl.append(photoForm.render());
     })
 
 
