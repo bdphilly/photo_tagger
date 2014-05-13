@@ -58,6 +58,12 @@
 
     _events: {},
 
+    find: function (id) {
+      return _(this.all).find(function (photo) {
+        return photo.get("id") == id;
+      });
+    },
+
     on: function (eventName, callback) {
       this._events[eventName] = this._events[eventName] || [];
       this._events[eventName].push(callback);
@@ -85,12 +91,11 @@
           });
           if (callback) callback(Photo.all);
         }
-      })
+      });
     },
 
   });
 })(this);
-
 
 
 

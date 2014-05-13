@@ -25,7 +25,7 @@
         console.log('photo was saved!');
       });
 
-    }
+    },
   });
 
 })(this);

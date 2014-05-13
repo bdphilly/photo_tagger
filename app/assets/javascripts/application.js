@@ -47,14 +47,12 @@ _.extend(PhotoApp, {
     content.append(photoFormView.render().$el);
   },
 
-    //   var photosListView = new PhotoApp.PhotosListView();
-    //   var newView = photosListView.render();
-    //   that.$rootEl.append(newView)
-    //
-    //   var photoFormView = new PhotoApp.PhotoFormView();
-    //   var newForm = photoForm.render();
-    //   that.$rootEl.append(newForm);
-    // })
+  showPhotoDetail: function (photo) {
+    var content = $("#content");
+
+    var photoDetailView = new PhotoApp.PhotoDetailView(photo);
+    content.html(photoDetailView.render().$el);
+  },
 
 });
 
