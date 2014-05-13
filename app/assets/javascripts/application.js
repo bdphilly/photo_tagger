@@ -16,85 +16,51 @@
 //= require jquery_ujs
 //= require jquery.serializeJSON
 //= require underscore
-//
 //= require_tree ./models
 //= require_tree ../templates
-//
 //= require_tree .
-
-var Photo = function (attrs) {
-  this.attributes = (attrs || {})
+//= require_tree ./views
+//
+// (function(root){
+//
+//   var PhotoApp = root.PhotoApp = ( root.PhotoApp || {});
+//
+//   var PT = PhotoApp.PT = function ($rootEl) {
+//     this.$rootEl = $rootEl;
+//   };
+//
+//   _.extend(PT.prototype, {
+//
+//     initialize: function (CURRENT_USER_ID) {
+//       debugger
+//       var photos = PhotoApp.Photo.fetchByUserId(CURRENT_USER_ID)
+//       var photosListView = new PhotosListView();
+//       var newView = photosListView.render()
+//       this.$rootEl.append(newView)
+//     }
+//
+//   })
+//
+//
+//
+//
+// })(this);
+function PT ($rootEl) {
+  this.$rootEl = $rootEl;
 };
 
-_.extend(Photo.prototype, {
-  get: function(attr_name) {
-    return this.attributes[attr_name];
-  },
+_.extend(PT.prototype, {
 
-  set: function(attr_name, val) {
-    this.attributes[attr_name] = val;
-  },
-
-  create: function(callback) {
+  initialize: function (CURRENT_USER_ID) {
+    // var AllPhotos;
     var that = this;
-    $.ajax({
-      method: 'POST',
-      url: 'api/photos',
-      data: {
-        photo: this.attributes
-      },
-      success: function (response) {
-        _.extend(that.attributes, response);
-        if (callback) callback(that.attributes);
-      }
+    PhotoApp.Photo.fetchByUserId(CURRENT_USER_ID, function() {
+      var photosListView = new PhotoApp.PhotosListView();
+      var newView = photosListView.render()
+      that.$rootEl.append(newView)
     })
-  },
 
-  update: function(callback) {
-    var that = this;
-    $.ajax({
-      method: 'PATCH',
-      url: 'api/photos/' + this.get('id'),
-      data: {
-        photo: this.attributes
-      },
-      success: function (response) {
-        _.extend(that.attributes, response);
-        if (callback) callback(that.attributes);
-      }
-    })
-  },
 
-  save: function(callback) {
-    if(this.get('id')){
-      this.update(callback);
-    } else {
-      this.create(callback);
-    }
-  },
-
-  fetchByUserId: function(userId, callback) {
-    var that = this;
-    $.ajax({
-      method: 'GET',
-      url: 'api/users/' + userId + '/photos',
-      success: function (response) {
-        _.extend(that.attributes, response);
-        if (callback) callback(that.attributes);
-      }
-    })
   }
+})
 
-});
-// //
-// // _.extend(Photo)
-//
-// var p = new Photo()
-//
-// p.set('url', 'http://google.com')
-// p.set('title', "test");
-// p.save();//
-// p.set('title',)
-// p.save(function(newPhoto) {
-//   console.log(newPhoto);
-// });

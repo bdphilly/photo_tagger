@@ -1,2 +1,12 @@
 <div id="content">
 </div>
+<script>
+
+(function() {
+  var $rootEl = $('#content')
+  var CURRENT_USER_ID = <%= @current_user.id %>
+  var pagetemplate = new PT($rootEl);
+  pagetemplate.initialize(CURRENT_USER_ID)
+})(this);
+
+</script>
