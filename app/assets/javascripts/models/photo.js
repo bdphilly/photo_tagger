@@ -7,38 +7,35 @@
   };
 
   _.extend(Photo.prototype, {
-    get: function(attr_name) {
+    get: function (attr_name) {
       return this.attributes[attr_name];
     },
 
-    set: function(attr_name, val) {
+    set: function (attr_name, val) {
       this.attributes[attr_name] = val;
     },
 
-    create: function(callback) {
+    create: function (callback) {
       var that = this;
       $.ajax({
         method: 'POST',
         url: 'api/photos',
-        data: {
-          photo: this.attributes
-        },
+        data: { photo: this.attributes },
         success: function (response) {
           _.extend(that.attributes, response);
           Photo.all.push(that);
+          Photo.trigger('add');
           if (callback) callback(that.attributes);
         }
       })
     },
 
-    update: function(callback) {
+    update: function (callback) {
       var that = this;
       $.ajax({
         method: 'PATCH',
         url: 'api/photos/' + this.get('id'),
-        data: {
-          photo: this.attributes
-        },
+        data: { photo: this.attributes },
         success: function (response) {
           _.extend(that.attributes, response);
           Photo.all.push(that);
@@ -47,7 +44,7 @@
       })
     },
 
-    save: function(callback) {
+    save: function (callback) {
       if(this.get('id')){
         this.update(callback);
       } else {
@@ -59,7 +56,23 @@
   _.extend(Photo, {
     all: [],
 
-    fetchByUserId: function(userId, callback) {
+    _events: {},
+
+    on: function (eventName, callback) {
+      this._events[eventName] = this._events[eventName] || [];
+      this._events[eventName].push(callback);
+    },
+
+    trigger: function (eventName) {
+      var callbacks = this._events[eventName];
+      var arg = arguments[1];
+      callbacks = callbacks || [];
+      callbacks.forEach(function (callback) {
+        callback(arg);
+      });
+    },
+
+    fetchByUserId: function (userId, callback) {
       var that = this;
       $.ajax({
         method: 'GET',
@@ -77,3 +90,15 @@
 
   });
 })(this);
+
+
+
+
+
+
+
+
+
+
+
+

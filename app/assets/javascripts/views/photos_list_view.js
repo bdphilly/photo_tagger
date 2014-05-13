@@ -4,6 +4,8 @@
 
   var PhotosListView = PhotoApp.PhotosListView = function(){
     this.$el = $('<div></div>');
+
+    PhotoApp.Photo.on("add", this.render.bind(this));
   }
 
   _.extend(PhotosListView.prototype, {

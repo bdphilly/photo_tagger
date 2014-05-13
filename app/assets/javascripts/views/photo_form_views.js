@@ -11,7 +11,6 @@
   _.extend(PhotoFormView.prototype, {
     render: function() {
       this.$el.html(this.template);
-      // debugger
       return this;
     },
 
@@ -23,7 +22,7 @@
       var newPhoto = new PhotoApp.Photo(formData.photo);
 
       newPhoto.create(function (newPhoto) {
-        alert('photo got saved!');
+        console.log('photo was saved!');
       });
 
     }
