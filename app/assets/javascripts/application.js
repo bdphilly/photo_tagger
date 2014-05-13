@@ -20,31 +20,9 @@
 //= require_tree ../templates
 //= require_tree .
 //= require_tree ./views
-//
-// (function(root){
-//
-//   var PhotoApp = root.PhotoApp = ( root.PhotoApp || {});
-//
-//   var PT = PhotoApp.PT = function ($rootEl) {
-//     this.$rootEl = $rootEl;
-//   };
-//
-//   _.extend(PT.prototype, {
-//
-//     initialize: function (CURRENT_USER_ID) {
-//       debugger
-//       var photos = PhotoApp.Photo.fetchByUserId(CURRENT_USER_ID)
-//       var photosListView = new PhotosListView();
-//       var newView = photosListView.render()
-//       this.$rootEl.append(newView)
-//     }
-//
-//   })
-//
-//
-//
-//
-// })(this);
+
+
+
 function PT ($rootEl) {
   this.$rootEl = $rootEl;
 };

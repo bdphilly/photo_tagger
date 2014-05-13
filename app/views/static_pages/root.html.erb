@@ -1,5 +1,10 @@
 <div id="content">
 </div>
+<br><br>
+<div id="form">
+</div>
+
+
 <script>
 
 (function() {
@@ -7,6 +12,12 @@
   var CURRENT_USER_ID = <%= @current_user.id %>
   var pagetemplate = new PT($rootEl);
   pagetemplate.initialize(CURRENT_USER_ID)
+
+  var photoForm = new PhotoApp.PhotoFormView();
+
+  $('#form').append(photoForm.render());
+
+
 })(this);
 
 </script>
