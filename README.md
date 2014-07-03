@@ -1,3 +1,3 @@
-# Starter for PhotoTagger
+# PhotoTagger
 
-This is a rails app to get you started on PhotoTagger.
+Simple photo tagging Backbone App.
